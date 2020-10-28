@@ -12,7 +12,7 @@ import com.mattg.smartcivics.R
 import com.mattg.smartcivics.models.news.Article
 import com.mattg.smartcivics.ui.news.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_article.*
-import kotlinx.android.synthetic.main.news_item.*
+
 
 class ArticleFragment : Fragment() {
 
@@ -42,7 +42,7 @@ class ArticleFragment : Fragment() {
 
     private fun setupView(it: Article?) {
     if(it != null){
-        var contentText: String = ""
+        var contentText = ""
         val bodyText = it.content
         val chunkedText = bodyText?.chunked(100)
         chunkedText?.forEach {

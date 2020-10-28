@@ -13,11 +13,6 @@ import retrofit2.Response
 
 class NewsViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is News Fragment.....under construction :)"
-    }
-    val text: LiveData<String> = _text
-
     private val _articles = MutableLiveData<List<Article>>()
     val articles : LiveData<List<Article>> = _articles
 
@@ -43,7 +38,7 @@ class NewsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                Log.d("NewsViewModel", t.localizedMessage)
+                Log.d("NewsViewModel", "${t.message}")
             }
         })
     }
@@ -61,7 +56,7 @@ class NewsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                Log.d("NewsViewModel", t.localizedMessage)
+                Log.d("NewsViewModel","${t.message}")
             }
         })
     }
@@ -70,7 +65,7 @@ class NewsViewModel : ViewModel() {
         setLoading(true)
         clearList()
         val congressNews = ApiCallService.getNews()
-        congressNews.getCongressNews(key).enqueue(object: Callback<NewsResponse>{
+        congressNews.getCongressNews(key).enqueue(object : Callback<NewsResponse> {
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 val result = response.body()
                 _articles.value = result?.articles
@@ -79,7 +74,7 @@ class NewsViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                Log.d("NewsViewModel", t.localizedMessage)
+                Log.d("NewsViewModel", "${t.message}")
             }
         })
     }

@@ -21,7 +21,7 @@ object ApiCallService {
     private const val MEMBER_BASE_URL = "https://api.propublica.org/congress/v1/members/"
     private const val OPEN_BASE_URL = "https://www.opensecrets.org/api/"
     private const val NEWS_BASE_URL = "https://newsapi.org/v2/"
-    //top-headlines?country=de&category=business&apiKey=26e31ab8333741948a0224a4fd0c0724"
+
 
 
     private var api: CivicApiCall? = null

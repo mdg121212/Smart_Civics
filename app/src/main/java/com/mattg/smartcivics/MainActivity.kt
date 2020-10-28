@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setActionBarTitle(title: String){
-        supportActionBar?.setTitle(title)
+        supportActionBar?.title = title
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
