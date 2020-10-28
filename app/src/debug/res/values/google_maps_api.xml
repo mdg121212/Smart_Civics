@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=C0:F5:F9:FA:DC:87:AF:86:10:26:09:98:EF:98:7A:2A:C6:B6:9F:E9%3Bcom.mattg.smartcivics.ui.elections.fragments
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    com.mattg.smartcivics.ui.elections.com.mattg.smartcivics.ui.news.fragments
+
+    SHA-1 certificate fingerprint:
+    C0:F5:F9:FA:DC:87:AF:86:10:26:09:98:EF:98:7A:2A:C6:B6:9F:E9
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCh9LIcjNWdtVSucuu8y57PzGGOA38kSWo</string>
+</resources>

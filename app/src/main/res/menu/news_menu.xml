@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Senate"
+        android:id="@+id/senate_menu"/>
+    <item android:title="Congress"
+        android:id="@+id/congress_menu"/>
+    <item android:title="General"
+        android:id="@+id/general_menu"/>
+</menu>

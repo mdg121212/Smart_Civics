@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_info_window"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@drawable/marker_gradient">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_maker_cv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/marker_gradient"
+        android:backgroundTint="@color/browser_actions_bg_grey">
+
+        <TextView
+            android:id="@+id/tv_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title Text" />
+
+        <TextView
+            android:id="@+id/tv_info_dates_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/dates"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_address" />
+
+        <TextView
+            android:id="@+id/tv_info_pollinghours_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/polling_hours"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_dates_title" />
+
+        <TextView
+            android:id="@+id/tv_info_dates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_info_dates_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_info_dates_title"
+            tools:text="text" />
+
+        <TextView
+            android:id="@+id/tv_polling_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_info_pollinghours_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_info_pollinghours_title"
+            tools:text="Polling Hours Text" />
+
+        <TextView
+            android:id="@+id/tv_info_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_info_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_title"
+            tools:text="text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
