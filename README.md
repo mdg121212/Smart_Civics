@@ -12,10 +12,12 @@ The news component uses the News API to get stories related to general politics 
 general political news.  
 
 -The architecture is MVVM.  
+
 -There is a single activity with fragments connected to the view models.
+
 -Image loading is done with Glide.
+
 -API calls are made with Retrofit2.
+
 -The app uses recycler views, with data binding on the items.
 
-
-  
