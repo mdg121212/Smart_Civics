@@ -44,7 +44,11 @@
         tools:layout="@layout/fragment_news" >
         <action
             android:id="@+id/action_navigation_notifications_to_articleFragment"
-            app:destination="@id/articleFragment" />
+            app:destination="@id/articleFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/exit_left_to_right" />
     </fragment>
     <fragment
         android:id="@+id/repDetailFragment"
