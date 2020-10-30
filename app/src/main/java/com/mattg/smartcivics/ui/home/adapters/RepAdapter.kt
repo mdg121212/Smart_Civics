@@ -1,10 +1,14 @@
 package com.mattg.smartcivics.ui.home.adapters
 
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
+import androidx.core.animation.doOnEnd
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -15,7 +19,7 @@ import com.mattg.smartcivics.ui.home.RecyclerClickListener
 
 
 class RepAdapter(private val context: Context, private val officials: List<Representative>, private val clickListener: RecyclerClickListener) :
-RecyclerView.Adapter<RepViewHolder>(){
+        RecyclerView.Adapter<RepViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepViewHolder {
         return RepViewHolder.from(parent)
     }
@@ -38,14 +42,15 @@ class RepViewHolder private constructor(private val binding: RepRecyclerItemBind
             return RepViewHolder(binding)
         }
     }
-    fun bind(rep: Representative, context: Context, clickListener: RecyclerClickListener){
+
+    fun bind(rep: Representative, context: Context, clickListener: RecyclerClickListener) {
         binding.rep = rep
         val photoUrl = rep.photo.toString()
 
-        when(rep.party){
+        when (rep.party) {
             "Democratic Party" -> {
-            binding.ivPartyIcon.setImageResource(R.drawable.donkey)
-        }
+                binding.ivPartyIcon.setImageResource(R.drawable.donkey)
+            }
             "Republican Party" -> {
                 binding.ivPartyIcon.setImageResource(R.drawable.elephant)
             }
@@ -59,24 +64,30 @@ class RepViewHolder private constructor(private val binding: RepRecyclerItemBind
 
         Log.i("PHOTO", photoUrl)
 
-        if(!photoUrl.isNullOrEmpty()){
+        if (photoUrl.isNotEmpty()) {
 
             Glide.with(context)
-                .load(photoUrl)
-                .fallback(R.drawable.man)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(binding.imageView)
+                    .load(photoUrl)
+                    .fallback(R.drawable.man)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(binding.imageView)
 
-        }
-        else {
+        } else {
             Glide.with(context)
-                .load(R.drawable.man)
-                .into(binding.imageView)
+                    .load(R.drawable.man)
+                    .into(binding.imageView)
         }
 
         //implement click listener
         binding.cvItem.setOnClickListener {
-            clickListener.onClickItem(rep, adapterPosition)
+            val animation = ObjectAnimator.ofFloat(it, View.TRANSLATION_Y, 0f, 25f, 0f)
+            animation.apply {
+                duration = 1000
+                interpolator = BounceInterpolator()
+                start()
+            }.doOnEnd { clickListener.onClickItem(rep, adapterPosition) }
+
+
         }
-        }
+    }
 }

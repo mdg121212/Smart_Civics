@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_repDetailFragment"
-            app:destination="@id/repDetailFragment" />
+            app:destination="@id/repDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/exit_left_to_right" />
         <argument
             android:name="rep"
             app:argType="string"
@@ -27,7 +31,10 @@
         tools:layout="@layout/fragment_elections" >
         <action
             android:id="@+id/action_navigation_dashboard_to_electionMapsFragment"
-            app:destination="@id/electionMapsFragment" />
+            app:destination="@id/electionMapsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/fade_in" />
     </fragment>
 
     <fragment
@@ -50,7 +57,11 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_repDetailFragment_to_congressRecordDetail"
-            app:destination="@id/congressRecordDetail" />
+            app:destination="@id/congressRecordDetail"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/exit_left_to_right" />
     </fragment>
     <fragment
         android:id="@+id/congressRecordDetail"
@@ -59,17 +70,29 @@
         tools:layout="@layout/fragment_congress_record_detail">
         <action
             android:id="@+id/action_congressRecordDetail_to_committeeDetailFragment"
-            app:destination="@id/committeeDetailFragment" />
+            app:destination="@id/committeeDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/exit_left_to_right" />
         <argument
             android:name="isCommittee"
             app:argType="boolean"
             android:defaultValue="true" />
         <action
             android:id="@+id/action_congressRecordDetail_to_billDetailFragment"
-            app:destination="@id/billDetailFragment" />
+            app:destination="@id/billDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/exit_left_to_right" />
         <action
             android:id="@+id/action_congressRecordDetail_to_voteDetailFragment"
-            app:destination="@id/voteDetailFragment" />
+            app:destination="@id/voteDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/exit_left_to_right"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/exit_left_to_right" />
     </fragment>
     <fragment
         android:id="@+id/committeeDetailFragment"
@@ -82,7 +105,9 @@
             android:defaultValue="true" />
         <action
             android:id="@+id/action_committeeDetailFragment_to_repDetailFragment"
-            app:destination="@id/repDetailFragment" />
+            app:destination="@id/repDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/exit_left_to_right" />
     </fragment>
     <fragment
         android:id="@+id/billDetailFragment"

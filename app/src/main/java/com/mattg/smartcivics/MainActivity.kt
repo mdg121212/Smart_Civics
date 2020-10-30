@@ -3,12 +3,12 @@ package com.mattg.smartcivics
 
 import android.os.Bundle
 import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -24,26 +24,25 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         //request permissions with Dexter
         Dexter.withContext(this)
-            .withPermissions(
-                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            .withListener(object: MultiplePermissionsListener {
-                override fun onPermissionsChecked(permissionsReport: MultiplePermissionsReport?) {
-                    if(permissionsReport?.areAllPermissionsGranted() == true){
-                        return
+                .withPermissions(
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                )
+                .withListener(object : MultiplePermissionsListener {
+                    override fun onPermissionsChecked(permissionsReport: MultiplePermissionsReport?) {
+                        if (permissionsReport?.areAllPermissionsGranted() == true) {
+                            return
+                        }
                     }
-                }
 
-                override fun onPermissionRationaleShouldBeShown(
-                    requestList: MutableList<PermissionRequest>?,
-                    permissionToken: PermissionToken?,
-                ) {
-                    permissionToken?.continuePermissionRequest()
-                }
-            })
-            .check()
-
+                    override fun onPermissionRationaleShouldBeShown(
+                            requestList: MutableList<PermissionRequest>?,
+                            permissionToken: PermissionToken?,
+                    ) {
+                        permissionToken?.continuePermissionRequest()
+                    }
+                })
+                .check()
 
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -55,12 +54,12 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    fun setActionBarTitle(title: String){
+    fun setActionBarTitle(title: String) {
         supportActionBar?.title = title
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
                 return true

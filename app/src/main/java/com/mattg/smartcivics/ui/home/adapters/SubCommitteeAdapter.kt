@@ -1,7 +1,12 @@
 package com.mattg.smartcivics.ui.home.adapters
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
+import androidx.core.animation.doOnEnd
 import androidx.recyclerview.widget.RecyclerView
 import com.mattg.smartcivics.databinding.SubcommitteeItemBinding
 import com.mattg.smartcivics.models.propubmember.Subcommittee
@@ -35,7 +40,17 @@ class SubCommitteeViewHolder(private val binding: SubcommitteeItemBinding) : Rec
     fun bind(subCom: Subcommittee, clickListener: SubCommitteeClickListener){
         binding.subcom = subCom
         binding.clSubcommitteeItem.setOnClickListener {
-            clickListener.onClickItem(subCom, adapterPosition)
+            val animationX = ObjectAnimator.ofFloat(it, View.SCALE_X, 0f, 10f)
+            val animationY = ObjectAnimator.ofFloat(it, View.SCALE_Y, 0f, 10f)
+            val animations = AnimatorSet()
+            animations.apply {
+                playTogether(animationX, animationY)
+                duration = 500
+                interpolator = LinearInterpolator()
+                start()
+            }.doOnEnd {
+                clickListener.onClickItem(subCom, adapterPosition)
+            }
         }
     }
 }
