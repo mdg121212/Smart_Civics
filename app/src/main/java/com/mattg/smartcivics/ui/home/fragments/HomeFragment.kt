@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
@@ -24,6 +25,7 @@ import com.mattg.smartcivics.ui.home.adapters.RepAdapter
 import com.mattg.smartcivics.utils.Constants
 import com.mattg.smartcivics.utils.getLocationReturnAddress
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -81,9 +83,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun callApis(searchString: String) {
-        viewModel.callApi(searchString, Constants.key)
-        viewModel.callProPublicaAllMembers(116, "senate")
-        viewModel.callProPublicaAllMembers(116, "house")
+        viewModel.viewModelScope.launch {
+            viewModel.callApi(searchString, Constants.key)
+            viewModel.callProPublicaAllMembers(116, "senate")
+            viewModel.callProPublicaAllMembers(116, "house")
+        }
     }
 
     private fun observeViewModel() {

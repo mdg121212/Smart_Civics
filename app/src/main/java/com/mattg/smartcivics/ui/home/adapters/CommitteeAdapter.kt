@@ -49,7 +49,7 @@ class CommitteeViewHolder private constructor(private val binding: CommitteeItem
             val animations = AnimatorSet()
             animations.apply {
                 playTogether(animationX, animationY)
-                duration = 500
+                duration = 75
                 interpolator = LinearInterpolator()
                 start()
             }.doOnEnd {

@@ -10,12 +10,12 @@ import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
 import androidx.core.animation.doOnEnd
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.mattg.smartcivics.R
 import com.mattg.smartcivics.databinding.RepRecyclerItemBinding
 import com.mattg.smartcivics.models.Representative
 import com.mattg.smartcivics.ui.home.RecyclerClickListener
+import com.mattg.smartcivics.utils.getProgressDrawable
+import com.mattg.smartcivics.utils.loadImage
 
 
 class RepAdapter(private val context: Context, private val officials: List<Representative>, private val clickListener: RecyclerClickListener) :
@@ -66,28 +66,21 @@ class RepViewHolder private constructor(private val binding: RepRecyclerItemBind
 
         if (photoUrl.isNotEmpty()) {
 
-            Glide.with(context)
-                    .load(photoUrl)
-                    .fallback(R.drawable.man)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(binding.imageView)
+            binding.imageView.loadImage(photoUrl, getProgressDrawable(context))
 
-        } else {
-            Glide.with(context)
-                    .load(R.drawable.man)
-                    .into(binding.imageView)
         }
+
 
         //implement click listener
         binding.cvItem.setOnClickListener {
             val animation = ObjectAnimator.ofFloat(it, View.TRANSLATION_Y, 0f, 25f, 0f)
             animation.apply {
-                duration = 1000
+                duration = 750
                 interpolator = BounceInterpolator()
                 start()
             }.doOnEnd { clickListener.onClickItem(rep, adapterPosition) }
 
-
+            binding.executePendingBindings()
         }
     }
 }

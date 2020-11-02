@@ -41,8 +41,7 @@ class BillViewHolder private constructor(private val binding: BillItemBinding) :
         binding.cvBillItem.setOnClickListener {
             val animation = ObjectAnimator.ofFloat(it, View.TRANSLATION_Y, 0f, 25f, 0f)
             animation.apply {
-                duration = 1000
-                interpolator = BounceInterpolator()
+                duration = 350
                 start()
             }.doOnEnd {
                 clickListener.onClickItem(billItem, adapterPosition)

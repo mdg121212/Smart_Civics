@@ -45,7 +45,7 @@ class SubCommitteeViewHolder(private val binding: SubcommitteeItemBinding) : Rec
             val animations = AnimatorSet()
             animations.apply {
                 playTogether(animationX, animationY)
-                duration = 500
+                duration = 75
                 interpolator = LinearInterpolator()
                 start()
             }.doOnEnd {

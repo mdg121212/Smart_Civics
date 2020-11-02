@@ -6,7 +6,12 @@ import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
 import android.util.Log
+import android.widget.ImageView
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.mattg.smartcivics.R
 import com.mattg.smartcivics.models.*
 import com.mattg.smartcivics.models.civicapi.Official
 import com.mattg.smartcivics.models.civicapi.RepResponse
@@ -16,6 +21,24 @@ import com.mattg.smartcivics.models.propubmember.ProPublicaBaseResult
 import java.util.*
 import kotlin.collections.ArrayList
 
+fun getProgressDrawable(context: Context) : CircularProgressDrawable {
+    return CircularProgressDrawable(context).apply {
+        strokeWidth = 10f //creates a spinner to display in image before it is loaded
+        centerRadius = 50f
+        start()
+    }
+}
+
+fun ImageView.loadImage(imageString: String?, progressDrawable: CircularProgressDrawable) {
+    val options = RequestOptions()
+            .placeholder(progressDrawable)
+            .error(R.drawable.man)
+    Glide.with(this.context)
+            .setDefaultRequestOptions(options)
+            .load(imageString)
+            .into(this)
+
+}
 
 fun generateList(result: RepResponse?, repList: ArrayList<Representative>) {
     val reps = result?.officials

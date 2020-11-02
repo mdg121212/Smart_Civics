@@ -41,7 +41,7 @@ class VoteDetailViewHolder private constructor(private val binding: MemberVotede
         binding.cvVoteDetail.setOnClickListener {
             val animation = ObjectAnimator.ofFloat(it, View.TRANSLATION_Y, 0f, 25f, 0f)
             animation.apply {
-                duration = 1000
+                duration = 350
                 interpolator = BounceInterpolator()
                 start()
             }.doOnEnd {
