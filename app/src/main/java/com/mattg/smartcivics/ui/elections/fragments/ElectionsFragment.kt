@@ -22,7 +22,9 @@ import com.mattg.smartcivics.models.civicvoterinfo.appvotermodel.ElectionForDisp
 import com.mattg.smartcivics.ui.elections.ElectionsViewModel
 import com.mattg.smartcivics.ui.elections.adapters.ElectionAdapter
 import com.mattg.smartcivics.ui.home.ElectionClickListener
-import com.mattg.smartcivics.utils.*
+import com.mattg.smartcivics.utils.Constants
+import com.mattg.smartcivics.utils.TypeForMap
+import com.mattg.smartcivics.utils.getLocationReturnAddress
 import kotlinx.android.synthetic.main.election_admin_info_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_elections.*
 
@@ -35,12 +37,12 @@ class ElectionsFragment : Fragment() {
     private lateinit var locationRequest: LocationRequest
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         viewModel =
-               ViewModelProvider(requireActivity()).get(ElectionsViewModel::class.java)
+            ViewModelProvider(requireActivity()).get(ElectionsViewModel::class.java)
         observeViewModel()
         return inflater.inflate(R.layout.fragment_elections, container, false)
     }
@@ -50,15 +52,15 @@ class ElectionsFragment : Fragment() {
 
         observeViewModel()
 
-            btn_election_location.setOnClickListener {
+        btn_election_location.setOnClickListener {
 
-                   getNewLocation()
+            getNewLocation()
 
-                }
+        }
 
 
         btn_address.setOnClickListener {
-            if(et_election_address.text != null){
+            if (et_election_address.text != null) {
                 searchStringFormatted = et_election_address.text.toString()
                 tv_address_display.text = searchStringFormatted
                 viewModel.getVoterInfo(searchStringFormatted!!, true, Constants.key, null)
@@ -81,27 +83,46 @@ class ElectionsFragment : Fragment() {
     }
 
     @SuppressLint("InflateParams")
-    private fun observeViewModel(){
+    private fun observeViewModel() {
         viewModel.apply {
+            areElections.observe(viewLifecycleOwner) {
+                when (it) {
+                    false -> showNoElections()
+                    true -> {
+                        electionFormatted.observe(viewLifecycleOwner) { list ->
+                            if (list != null) {
 
-            electionFormatted.observe(viewLifecycleOwner){
-                if(it != null){
-                    clickListener = ElectionClickListener{ election, _, type ->
-                        searchStringFormatted?.let { it1 -> viewModel.getVoterInfo(it1, true, Constants.key, type) }
-                        viewModel.setType(type)
-                        if(type == TypeForMap.ADMININFO.toString()){
-                            showAdminDialog(election)
-                        } else {
-                            findNavController().navigate(R.id.action_navigation_dashboard_to_electionMapsFragment)
+                                clickListener = ElectionClickListener { election, _, type ->
+                                    searchStringFormatted?.let { it1 ->
+                                        viewModel.getVoterInfo(
+                                            it1,
+                                            true,
+                                            Constants.key,
+                                            type
+                                        )
+                                    }
+                                    viewModel.setType(type)
+                                    if (type == TypeForMap.ADMININFO.toString()) {
+                                        showAdminDialog(election)
+                                    } else {
+                                        findNavController().navigate(R.id.action_navigation_dashboard_to_electionMapsFragment)
+                                    }
+                                }
+
+                                initRecycler(list, clickListener)
+                            }
+
                         }
-
                     }
-                    initRecycler(it, clickListener)
-                }
-
                 }
             }
         }
+    }
+
+    private fun showNoElections() {
+        rv_viewscreen.visibility = View.INVISIBLE
+        cv_no_elections.visibility = View.VISIBLE
+    }
 
     @SuppressLint("InflateParams")
     private fun showAdminDialog(election: ElectionForDisplay) {
@@ -118,11 +139,11 @@ class ElectionsFragment : Fragment() {
         showElectionAdminDetails(view)
     }
 
-    private fun showElectionAdminDetails(view: View){
+    private fun showElectionAdminDetails(view: View) {
         val dialog = AlertDialog.Builder(requireContext())
         dialog.setView(view)
         dialog.setTitle("Election Administration Information")
-            dialog.show()
+        dialog.show()
 
     }
 
@@ -130,13 +151,15 @@ class ElectionsFragment : Fragment() {
         val locationManager: LocationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER)
+            LocationManager.NETWORK_PROVIDER
+        )
     }
 
     @SuppressLint("MissingPermission")
-    fun getNewLocation(){
-        if(isLocationEnabled()){
-            mFusedLocationClient = activity?.let { LocationServices.getFusedLocationProviderClient(it) }!!
+    fun getNewLocation() {
+        if (isLocationEnabled()) {
+            mFusedLocationClient =
+                activity?.let { LocationServices.getFusedLocationProviderClient(it) }!!
             locationRequest = LocationRequest().apply {
                 priority = LocationRequest.PRIORITY_HIGH_ACCURACY
                 interval = 0
@@ -147,18 +170,23 @@ class ElectionsFragment : Fragment() {
                 locationRequest, locationCallback, Looper.getMainLooper()
             )
         } else {
-            Snackbar.make(requireView(), "Need to enable location services", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), "Need to enable location services", Snackbar.LENGTH_SHORT)
+                .show()
         }
 
 
     }
 
-    private val locationCallback = object: LocationCallback(){
+    private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(location: LocationResult?) {
             val lastLocation = location?.lastLocation
             //set new location
-            if(lastLocation != null){
-                val string = getLocationReturnAddress(lastLocation.latitude, lastLocation.longitude, requireContext())
+            if (lastLocation != null) {
+                val string = getLocationReturnAddress(
+                    lastLocation.latitude,
+                    lastLocation.longitude,
+                    requireContext()
+                )
                 viewModel.getVoterInfo(string, true, Constants.key, null)
                 tv_address_display.text = string
             } else {
@@ -169,5 +197,4 @@ class ElectionsFragment : Fragment() {
     }
 
 
-
-    }
+}

@@ -61,50 +61,76 @@ class ElectionsViewModel : ViewModel() {
                 call: Call<CivicVoterInfoResponse>,
                 response: Response<CivicVoterInfoResponse>,
             ) {
-                val result = response.body()
-                _voteInfoResponse.value = result
-                Log.i("TEST", "Voter info response: ${response.body()}")
-                val formatted = response.body()?.let { createDisplayElection(it) }
-                if (formatted != null) {
-                    val electionList = listOf(formatted)
-                    Log.i("TESTING", "${ electionList.size }, ${electionList.get(0).date}")
-                    _electionFormatted.value = electionList
-                    //launch on background thread
-                    viewModelScope.launch {
-                        getEarlyList()?.let{ electionList[0].earlyVoteSites?.let { it1 ->
-                            convertEarlyList(it1)}}
-                        getDropOffList()?.let{ electionList[0].dropoffLocations?.let { it2 ->
-                            convertDropOffList(it2)}}
-                        getPollingList()?.let { electionList[0].pollingLocations?.let { it3 ->
-                            convertPollingList(it3)}}
-                    }
-
-                    if(type != null){
-                       when(type){
-                           TypeForMap.POLLING.toString() -> {
-                               setType(TypeForMap.POLLING.toString())
-                           }
-                           TypeForMap.DROPOFF.toString() -> {
-                               setType(TypeForMap.DROPOFF.toString())
-                           }
-                           TypeForMap.EARLYVOTE.toString() -> {
-                               setType(TypeForMap.EARLYVOTE.toString())
-                           }
-                       }
-                    }
-                    _areElections.value = true
-
-                } else {
-
-                    _areElections.value = false
-                }
-
+                handleElectionsResult(response, type)
             }
 
             override fun onFailure(call: Call<CivicVoterInfoResponse>, t: Throwable) {
 
             }
         })
+    }
+
+    private fun handleElectionsResult(
+        response: Response<CivicVoterInfoResponse>,
+        type: String?
+    ) {
+        val result = response.body()
+        _voteInfoResponse.value = result
+        Log.i("TEST", "Voter info response: ${response.body()}")
+        if (response.body()?.election == null) {
+            showNoElection()
+            _areElections.value = false
+        } else {
+
+            val formatted = response.body()?.let { createDisplayElection(it) }
+            if (formatted != null) {
+                val electionList = listOf(formatted)
+                Log.i("TESTING", "${electionList.size}, ${electionList.get(0).date}")
+                _electionFormatted.value = electionList
+                //launch on background thread
+                viewModelScope.launch {
+                    getEarlyList()?.let {
+                        electionList[0].earlyVoteSites?.let { it1 ->
+                            convertEarlyList(it1)
+                        }
+                    }
+                    getDropOffList()?.let {
+                        electionList[0].dropoffLocations?.let { it2 ->
+                            convertDropOffList(it2)
+                        }
+                    }
+                    getPollingList()?.let {
+                        electionList[0].pollingLocations?.let { it3 ->
+                            convertPollingList(it3)
+                        }
+                    }
+                }
+
+                if (type != null) {
+                    when (type) {
+                        TypeForMap.POLLING.toString() -> {
+                            setType(TypeForMap.POLLING.toString())
+                        }
+                        TypeForMap.DROPOFF.toString() -> {
+                            setType(TypeForMap.DROPOFF.toString())
+                        }
+                        TypeForMap.EARLYVOTE.toString() -> {
+                            setType(TypeForMap.EARLYVOTE.toString())
+                        }
+                    }
+                }
+                _areElections.value = true
+
+            } else {
+
+                _areElections.value = false
+            }
+
+        }
+    }
+
+    private fun showNoElection(){
+
     }
 
     private fun convertPollingList(list: List<PollingLocation>) {
