@@ -1,5 +1,6 @@
 package com.mattg.smartcivics.ui.home.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,7 +41,7 @@ class CongressRecordDetail : Fragment() {
     ): View? {
 
         viewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_congress_record_detail, container, false)
     }
 
@@ -143,6 +144,7 @@ class CongressRecordDetail : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun fillInDetails(it: SingleProPublicaResponse?) {
         val basicInfo = it?.results?.get(0)
         if (basicInfo != null) {
@@ -175,7 +177,7 @@ class CongressRecordDetail : Fragment() {
     }
 
     private fun initVoteRecycler(voteList: List<Vote>){
-        voteClickListener = VoteClickListener {vote, position ->
+        voteClickListener = VoteClickListener {vote, _ ->
             viewModel.setVoteClicked(vote)
             findNavController().navigate(R.id.action_congressRecordDetail_to_voteDetailFragment)
         }

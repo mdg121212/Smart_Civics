@@ -30,8 +30,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-
-
 class HomeFragment : Fragment() {
 
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
@@ -68,7 +66,6 @@ class HomeFragment : Fragment() {
                     "${et_home_address.text}"
                 callApis(searchString)
                 et_home_address.text.clear()
-             //   tv_home_address_display.text = searchString.format(Locale.getDefault())
 
                 viewModel.setAddress(searchString.format(Locale.getDefault()))
 
@@ -95,15 +92,15 @@ class HomeFragment : Fragment() {
             if (!it.isNullOrEmpty()) {
                 setupRecycler(it)
                 homeRepList = it
-                Log.i("TESTING", "Value of officals list = ${it.size}")
+
                 viewModel.callProPublicaAllMembers(116, "house")
                 viewModel.callProPublicaAllMembers(116, "senate")
             }
         }
 
         viewModel.apply {
-            addressString.observe(viewLifecycleOwner){
-                if (!it.isNullOrEmpty()){
+            addressString.observe(viewLifecycleOwner) {
+                if (!it.isNullOrEmpty()) {
                     tv_home_address_display.text = it
                 }
             }
@@ -129,8 +126,11 @@ class HomeFragment : Fragment() {
             //setting the rating to view in more detail clicked fragment
             representative.againstPartyRating?.let { viewModel.setRepVoteAgainstRating(it) }
             viewModel.setRepToView(representative)
-            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToRepDetailFragment(
-                representative.name))
+            findNavController().navigate(
+                HomeFragmentDirections.actionNavigationHomeToRepDetailFragment(
+                    representative.name
+                )
+            )
         }
         val recycler = rv_home
         val adapterReps = RepAdapter(requireActivity(), list, clickListener)
@@ -147,13 +147,15 @@ class HomeFragment : Fragment() {
         val locationManager: LocationManager =
             requireActivity().getSystemService(LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER)
+            LocationManager.NETWORK_PROVIDER
+        )
     }
 
     @SuppressLint("MissingPermission")
-    fun getNewLocation(){
-        if(isLocationEnabled()){
-            mFusedLocationClient = activity?.let { LocationServices.getFusedLocationProviderClient(it) }!!
+    fun getNewLocation() {
+        if (isLocationEnabled()) {
+            mFusedLocationClient =
+                activity?.let { LocationServices.getFusedLocationProviderClient(it) }!!
             locationRequest = LocationRequest().apply {
                 priority = LocationRequest.PRIORITY_HIGH_ACCURACY
                 interval = 0
@@ -164,18 +166,23 @@ class HomeFragment : Fragment() {
                 locationRequest, locationCallback, Looper.getMainLooper()
             )
         } else {
-            Snackbar.make(requireView(), "Need to enable location services", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), "Need to enable location services", Snackbar.LENGTH_SHORT)
+                .show()
         }
 
 
     }
 
-    private val locationCallback = object: LocationCallback(){
+    private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(location: LocationResult?) {
             val lastLocation = location?.lastLocation
             //set new location
-            if(lastLocation != null){
-                val string = getLocationReturnAddress(lastLocation.latitude, lastLocation.longitude, requireContext())
+            if (lastLocation != null) {
+                val string = getLocationReturnAddress(
+                    lastLocation.latitude,
+                    lastLocation.longitude,
+                    requireContext()
+                )
                 callApis(string)
                 tv_home_address_display.text = string
             } else {

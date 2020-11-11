@@ -105,10 +105,6 @@ class HomeViewModel : ViewModel() {
     var recyclerMainShowing = MutableLiveData<Boolean>()
 
 
-    /**
-     * CREATE API CALL, FROM REPO, AVAILABLE HERE, TO GET A SPECIFIC CONGRESSIONAL MEMBERS PRO PUBLICA DATA SEE DOCUMENTATION
-     * WILL USE THE ADDED ID: FIELD
-     */
 
     fun getVotes(id: String) {
         val callVotes = ApiCallService.getProApi()
@@ -326,14 +322,10 @@ class HomeViewModel : ViewModel() {
             ) {
                 val result = response.body()
                 _singleResponse.value = result
-
-                //getting the list of committees for the first position MOST RECENT
-
+                //getting the list of committees for the first position
                 val list = result?.results?.get(0)
                 val sublist = list?.roles?.get(0)
-              //  val billsSponsored = sublist?.billsSponsored
-              //  val billsCosponsored = sublist?.billsCosponsored
-                //this is now the most current role, where committees can now be fetched
+                //this is now the most current role
                 val comList = sublist?.committees
                 committees.postValue(comList)
                 val subComList = sublist?.subcommittees
@@ -352,10 +344,10 @@ class HomeViewModel : ViewModel() {
         val callGet = ApiCallService.get()
         callGet.getRepresentatives(address, key).enqueue(object : Callback<RepResponse> {
             override fun onResponse(call: Call<RepResponse>, response: Response<RepResponse>) {
-                //  Log.i(TAG, "${response.body()}")
+
                 _repResponse.value = response.body()
                 val result = response.body()
-                //logic function located in UtilityFunctions
+                //function located in UtilityFunctions
                 generateList(result, repList)
                 setLoadingFinished()
                 _officials.value = repList
@@ -398,7 +390,7 @@ class HomeViewModel : ViewModel() {
                 ) {
                     //get response as specified type
                     val result = response.body()
-                    //logic function located in UtilityFunctions
+                    //function located in UtilityFunctions
                     mergeResultProPublica(result, repList)
                     setLoadingFinished()
                 }

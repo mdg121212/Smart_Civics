@@ -33,11 +33,10 @@ class CommitteeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // observeViewModel()
+
 
         when(args.value.isCommittee){
             true -> {
-
                 observeViewModelCommittee()
             }
             false -> {

@@ -47,7 +47,6 @@ class ElectionMapsFragment : Fragment(), OnMapReadyCallback,
 
 
     override fun onMarkerClick(marker: Marker?): Boolean {
-
         return true
     }
 
@@ -154,7 +153,7 @@ class ElectionMapsFragment : Fragment(), OnMapReadyCallback,
         val zoom = 12.7f
 
         val markerRef = LatLng(list[0].latitude!!, list[0].longitude!!)
-            //centering camera on first location from list (list is generated based on a user location, should be the closest)
+            //centering camera on first location from list
             map?.moveCamera(CameraUpdateFactory.newLatLngZoom(markerRef, zoom))
     }
 
@@ -189,14 +188,11 @@ class ElectionMapsFragment : Fragment(), OnMapReadyCallback,
         if (it.latitude != null && it.longitude != null) {
             val latLong = LatLng(it.latitude!!, it.longitude!!)
 
-
             val marker = map?.addMarker(MarkerOptions().apply {
                 position(latLong)
                 title("${it.address?.locationName}")
                 snippet("${it.address?.line1}")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-
-
             })
             marker?.tag = it
             marker?.showInfoWindow()

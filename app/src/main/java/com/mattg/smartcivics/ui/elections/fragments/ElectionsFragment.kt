@@ -52,12 +52,7 @@ class ElectionsFragment : Fragment() {
 
         observeViewModel()
 
-        btn_election_location.setOnClickListener {
-
-            getNewLocation()
-
-        }
-
+        btn_election_location.setOnClickListener { getNewLocation() }
 
         btn_address.setOnClickListener {
             if (et_election_address.text != null) {
@@ -67,9 +62,7 @@ class ElectionsFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Please enter address", Toast.LENGTH_SHORT).show()
             }
-
         }
-
     }
 
 
