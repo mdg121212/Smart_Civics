@@ -1,6 +1,6 @@
 # Smart_Civics
 
-An app that allows people to either use their gps location, or enter an address and receive a list of their current elected officials from the Google Civic API, a list of elections related
+An app that allows people to either use their gps location, or an entered address and receive a list of their current elected officials from the Google Civic API, a list of elections related
 to their location (also the Civic API), and political news.  For Senate and Congress members, more data is available through the ProPublica APIs.  For Congress/Senate representatives, 
 users can see a summary of their voting record, a list of recent votes (with detail), bills introduced, finances, and committees/subcommittees they are a part of. For any representative there is a screen where the representative in questions phone number (which they can call), job title, website (if available), and social media links (if available) are displayed. Not every 
 representative has a photo resource provided by the Google API, so for members of Congress a separate API call is made to fetch a photograph, and for others a placeholder image is used instead.  
