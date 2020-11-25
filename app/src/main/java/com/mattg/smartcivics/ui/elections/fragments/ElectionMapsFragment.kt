@@ -196,7 +196,6 @@ class ElectionMapsFragment : Fragment(), OnMapReadyCallback,
             })
             marker?.tag = it
             marker?.showInfoWindow()
-
         }
     }
 

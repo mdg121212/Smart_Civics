@@ -72,6 +72,8 @@ class HomeFragment : Fragment() {
             }
         }
         btn_use_location.setOnClickListener {
+            et_home_address.text.clear()
+            viewModel.clearList()
             viewModel.clearAddress()
             getNewLocation()
 
