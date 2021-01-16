@@ -2,10 +2,10 @@ package com.mattg.smartcivics.ui.home.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.mattg.smartcivics.R
@@ -35,7 +35,7 @@ class CommitteeDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        when(args.value.isCommittee){
+        when (args.value.isCommittee) {
             true -> {
                 observeViewModelCommittee()
             }
@@ -46,26 +46,25 @@ class CommitteeDetailFragment : Fragment() {
     }
 
     private fun observeViewModelCommittee() {
-        viewModel.committeeClicked.observe(viewLifecycleOwner){
+        viewModel.committeeClicked.observe(viewLifecycleOwner) {
             tv_com_title.text = it.name
 
         }
 
-       viewModel.committeeFromUrl.observe(viewLifecycleOwner){
-           val details = it.results?.get(0)
-           formatCommitteeMembers(details)
-           val link = details?.url
-           tv_com_link.text = link
-       }
+        viewModel.committeeFromUrl.observe(viewLifecycleOwner) {
+            val details = it.results?.get(0)
+            formatCommitteeMembers(details)
+            val link = details?.url
+            tv_com_link.text = link
+        }
     }
 
 
-
-    private fun observeViewModelSubCommittee(){
-        viewModel.subCommitteeClicked.observe(viewLifecycleOwner){
+    private fun observeViewModelSubCommittee() {
+        viewModel.subCommitteeClicked.observe(viewLifecycleOwner) {
             tv_com_title.text = it.name
         }
-        viewModel.subCommitteeFromUrl.observe(viewLifecycleOwner){
+        viewModel.subCommitteeFromUrl.observe(viewLifecycleOwner) {
             val details = it.results?.get(0)
             tv_com_chair.text = details?.chair
             formatCommitteeMembers(details)

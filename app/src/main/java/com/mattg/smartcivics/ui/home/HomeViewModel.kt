@@ -220,7 +220,7 @@ class HomeViewModel : ViewModel() {
 
     fun getMemberFinancials(year: Int, id: String) {
         val callFinance = ApiCallService.getMemberFinances()
-        callFinance.getMemberFinancials(year, id).enqueue(object : Callback<FinanceResponse> {
+        callFinance.getMemberFinancial(year, id).enqueue(object : Callback<FinanceResponse> {
             override fun onResponse(
                 call: Call<FinanceResponse>,
                 response: Response<FinanceResponse>,

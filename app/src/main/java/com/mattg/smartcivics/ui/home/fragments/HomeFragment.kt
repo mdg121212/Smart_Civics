@@ -5,7 +5,6 @@ import android.content.Context.LOCATION_SERVICE
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

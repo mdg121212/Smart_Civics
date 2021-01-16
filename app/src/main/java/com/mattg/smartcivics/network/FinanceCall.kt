@@ -11,5 +11,5 @@ interface FinanceCall {
 
     @Headers("X-API-Key: ${Constants.financeKey}")
     @GET("{cycle}/candidates/{fec-id}.json")
-    fun getMemberFinancials(@Path("cycle")year: Int, @Path("fec-id")id: String) : Call<FinanceResponse>
+    fun getMemberFinancial(@Path("cycle")year: Int, @Path("fec-id")id: String) : Call<FinanceResponse>
 }

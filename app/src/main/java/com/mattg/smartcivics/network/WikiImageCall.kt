@@ -4,7 +4,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 interface WikiImageCall {
-    //&titles=Cat
+
     @GET("api.php?action=query&format=json&prop=images")
     fun getWikiImage(@Query("titles")search: String) : Call<ImageResult>
 }
