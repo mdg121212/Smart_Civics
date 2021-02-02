@@ -6,7 +6,6 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface OpenSecretCall {
-   // https://www.opensecrets.org/api/?method=candContrib&cid=N00007360&cycle=2020&apikey=__apikey__
 
     @GET("?method=candContrib&cid={cid}&cycle={cycle}&output=json&apikey={key}")
     fun getCandidateTopDonors(@Path("cid")cid: String,

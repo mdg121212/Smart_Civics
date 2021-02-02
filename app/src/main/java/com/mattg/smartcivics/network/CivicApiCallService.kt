@@ -8,7 +8,6 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 
 
 object ApiCallService {
@@ -191,9 +190,7 @@ object ApiCallService {
     fun get() = getCivicApi()
     //for getting a members financials
     fun getMemberFinances() = getMemberFinance()
-    //for wikipedia api
- //   fun getWiki() = getWikiApi()
-    //for getting full list of congressional members proPublica (to merge with civic api call to create 'representative' class)
+    //for getting full list of congressional members proPublica
     fun getProAll() = getProListAllMembers()
     //for getting single member from proPublica
     fun getProSingle() = getSingleProPubApi()

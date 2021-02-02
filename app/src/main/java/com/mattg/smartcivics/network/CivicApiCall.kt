@@ -2,7 +2,6 @@ package com.mattg.smartcivics.network
 
 import com.mattg.smartcivics.models.civicapi.RepResponse
 import com.mattg.smartcivics.models.civicvoterinfo.CivicVoterInfoResponse
-import dagger.Component
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
